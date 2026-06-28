@@ -1,0 +1,19 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Render
+        uses: johnbryson/render-deploy-action@v1.4.0
+        with:
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
