@@ -6,7 +6,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 
 # Get API keys from environment variables
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
 
 if not BOT_TOKEN:
     print("ERROR: BOT_TOKEN environment variable not set!")
@@ -15,16 +15,16 @@ if not BOT_TOKEN:
 # User memory storage (in-memory for demo)
 user_memory = {}
 
-# AI Response Function
+# AI Response Function using OpenRouter API
 def get_ai_response(prompt, user_id):
-    """Get AI response using OpenAI API"""
+    """Get AI response using OpenRouter API"""
     try:
         import openai
         
-        if not OPENAI_API_KEY:
-            return "⚠️ OpenAI API key not configured. Please set OPENAI_API_KEY environment variable."
+        if not OPENROUTER_API_KEY:
+            return "⚠️ OpenRouter API key not configured. Please set OPENROUTER_API_KEY environment variable."
         
-        openai.api_key = OPENAI_API_KEY
+        openai.api_key = OPENROUTER_API_KEY
         
         # Get user memory if exists
         user_context = user_memory.get(user_id, {})
@@ -38,7 +38,7 @@ def get_ai_response(prompt, user_id):
         full_prompt = f"You are a helpful AI assistant. User memory:\n{memory_text}\n\nUser says: {prompt}"
         
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="openai/gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a friendly, helpful AI assistant. Be concise and friendly."},
                 {"role": "user", "content": full_prompt}
