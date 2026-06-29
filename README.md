@@ -93,7 +93,8 @@ This bot uses **GitHub Actions** for automatic deployment:
 2. GitHub Actions automatically deploys to Render
 3. Bot updates automatically!
 
-## 💰 Cost
+
+n## 💰 Cost
 
 | Service | Cost |
 |---------|------|
